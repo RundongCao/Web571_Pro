@@ -1,0 +1,177 @@
+
+.first{
+	
+	
+	margin-bottom: 20px;
+	/*--height: 50px; 
+	overflow: hidden;*/
+}
+
+.img1{
+	position: relative;
+	left: 5%;
+
+}
+.img11{
+	position: relative;
+	width: 120px;
+	top:10px;
+}
+
+.button1{
+	position: absolute;
+	right: 20px;
+	top: 10px;
+	width: 80px;
+	height: 30px;
+	border-width:2px;
+	border-color: #BB0000;
+	border-style: ridge;
+	border-radius: 4px;
+	text-align: center;
+	background-color: rgb(198,9,54);
+	color: white;
+}
+.button1:hover{
+	background-color: rgb(180,9,45);
+}
+
+
+.text1{
+	/*float: right;background-color: green;*/
+	color: rgb(0,135,217);
+	position: absolute;
+	top: 10px;
+	right: 105px;
+	text-align: right;
+	font-size: 60%;
+	line-height: 160%;
+	font-weight: 600;
+	
+}
+
+
+.second{
+	position: relative;
+	background-color: #003366;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 30px;
+	height: auto;
+	width: 100%;
+	margin: 0px;
+}
+
+.text2{
+	color: white;
+	text-align: center;
+}
+
+.butimg{
+	position: relative;
+	/*background-color: green;*/
+	text-align: center;
+	
+}
+
+.button2{
+	position: absolute;
+	width: 80px;
+	border-width:2px;
+	border-style: ridge;
+	border-radius: 4px;
+	border-color: #BB0000;
+	text-align: center;
+	
+	color: white;
+	background-color: rgb(198,9,54);
+	top: 0px;
+	/*padding: 15px 32px;*/
+	margin: auto;
+	height: 30px;
+}
+.button2:hover{
+	background-color: rgb(180,9,45);
+}
+
+.img2{
+	position: relative;
+	left: 30%;
+	height: 35px;
+}
+
+
+.third{
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
+	overflow: hidden;
+	height: auto;
+}
+
+.text3{
+	color: rgb(0,135,217);
+	margin-top: 0px;
+	padding-top: 0px; 
+}
+
+.part{
+	
+}
+
+.div-a{
+	vertical-align: middle;
+	text-align: left;
+	float: left;
+	width: 49%;
+	height: 20%;*/
+}
+.div-b1{
+	float: right;
+}
+.div-b2{
+	float: left;
+}
+.img31{
+	float:right;
+}
+.img32{
+	float: left;
+	margin-left: 10px;
+}
+
+.ph{
+	font-size: 100%;
+	font-weight: normal;
+	line-height: 120%;
+	font-family: Adobe Heiti Std;
+}
+.pb{
+	font-size: 80%;
+}
+
+
+.fourth{
+	background-color: #003366;
+	padding-bottom: 20px;
+}
+
+.s-a{
+	color: white;
+	font-size: 80%;
+	position: relative;
+	left: 10%;
+}
+
+.s-b{
+	color: white;
+	font-size: 60%;
+	position: relative;
+	left: 10%;
+}
+
+.dot{
+	border: none;
+	margin: 0px;
+	color: #0066CC;
+}

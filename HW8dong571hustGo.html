@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		CS 571 Homework 8
+	</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+	<link href="https://cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet">
+
+	<!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+
+	<style type="text/css">
+		body{
+			background-image: url(http://cs-server.usc.edu:45678/hw/hw8/images/background.png);
+		}
+		h3{
+			text-align: center;
+		}
+		.word{
+			font-weight: bold;
+		}
+		#part1{
+			background-color: white;
+			padding: 10px;
+		}
+		
+		#part2{
+			background-color: white;
+			padding: 10px;
+		}
+		
+
+		#formtab1{
+			border:1px solid rgb(212,211,212);
+		}
+		#formtab2{
+			border:1px solid rgb(212,211,212);
+		}
+
+		#ft1{
+			background-color: rgb(233,233,233);
+			margin: 0px;
+			padding-top: 5px;
+		}
+		#ft2{
+			margin: 0px;
+			padding: 10px;
+		}
+		#toggle-one{
+			margin: 0px;
+		}
+		#ft3{
+			margin: 0px;
+			background-color: rgb(248,248,248);
+			border-top: 1px solid rgb(212,211,212);
+		}
+
+		#ft21{
+			background-color: rgb(233,233,233);
+			margin: 0px;
+			
+		}
+
+		div{
+			margin-bottom:5px;  
+		}
+		.md-padding{
+			padding: 0px;
+		}
+		#name1{
+			margin: 0px;
+			padding: 0px;
+			border: 1px solid rgb(212,211,212);
+		}
+		#name1.ng-invalid-required.ng-touched{
+			border-color: red;
+		}
+
+		.view1.ng-enter
+		{
+  			transition:0.5s linear all;
+  			transform:translateX(60%);
+		}		
+		.view1.ng-enter.ng-enter-active{
+  			transform:translateX(0%);
+		}
+		.view2.ng-enter
+		{
+  			transition:0.5s linear all;
+  			transform:translateX(-60%);
+		}		
+		.view2.ng-enter.ng-enter-active{
+  			transform:translateX(0%);
+		}
+		.left{
+			background-color: rgb(243,243,243);
+			font-weight: bold;
+			text-align: left;
+		}		
+		.table2{
+			
+			border-color: rgb(215,215,215);
+			border-style: solid;
+			border-width: 2px;
+			border-collapse: collapse;
+		}
+	</style>
+</head>
+
+<body ng-app="mdAutoCompleteDemo" ng-init="bool=true" ng-controller="DemoCtrl as ctrl">
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+	<script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
+
+	<!-- Angular Material requires Angular.js Libraries 
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+   Angular Material Library -->
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+   Your application bootstrap  -->
+    
+   
+	<script type="text/javascript">
+		function reset(){
+			document.getElementById("name1").value = "";
+		}
+	</script>
+ 
+	<script>
+
+           // $(document).ready(function(){  
+            	/*$("#part1").bootstrapValidator({
+            		//message:"Invalid",
+					fields:{
+						symb:{							
+							validators:{
+								notEmpty:{
+									message:'Please enter a stock ticker symbol'
+								}
+							}
+						}
+					}
+            	});*/
+            	//angular.module('autocompleteDemo',['ngMaterial']);
+
+                /*Search 
+                $("#searchBtn").off().on("click",function(){  
+                    //var stuNo = $("#stuNo").val();  
+                    var Name1 = $("#name1").val();  
+                    //alert("学生学号："+stuNo+"\n学生姓名："+stuName);  
+                    console.info(Name1);  
+                });  
+                  
+                //Reset  
+                $("#resetBtn").off().on("click",function(){    
+                    $("#name1").val("");  
+                });  
+            }); */ 
+    </script>  
+
+
+	<div class="container">
+		
+		<div class="form-inline" id="part1">
+
+				
+
+		<div class="word">
+			<h3>Stock Market Search</h3>		
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-3">
+				<div class="word">
+					Enter Stock Ticker Symbol:*
+				</div>
+			</div>
+			<!--<div class="col-xs-12 col-md-6" ng-controller="DemoCtrl">
+				<form name="autocompleteForm">
+					<md-autocomplete required md-input-name="autocomplete" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in getMatches(searchText)" md-item-text="item.display" placeholder="e.g. AAPL">
+    				<md-item-template>
+     		 			<span md-highlight-text="searchText">{{item.display}}</span>
+    				</md-item-template>
+    				<div ng-messages="autocompleteForm.autocomplete.$error">
+      				<div ng-message="required">Please enter a stock ticker symbol.</div>
+    				</div>
+  					</md-autocomplete>
+				</form>
+			</div>-->
+			<form ng-submit="$event.preventDefault()" name="searchForm">
+			<div class="col-xs-12 col-md-6" layout="column" ng-cloak>
+  				<md-content class="md-padding">
+    			
+      
+      			<md-autocomplete
+      			md-input-id="name1"
+      			ng-class="{'has-error':searchForm.autocompleteField.$touched && searchForm.autocompleteField.$invalid}"
+      			ng-model="autocompleteField"
+                md-input-name="autocompleteField"
+                md-input-minlength="1"               
+                md-no-cache="ctrl.noCache"
+                md-selected-item="ctrl.selectedItem"
+                md-search-text="ctrl.searchText"
+                md-items="item in ctrl.querySearch(ctrl.searchText)"
+                md-item-text="item.display"
+                md-floating-label=""
+                md-require-match=true
+                placeholder=" e.g. AAPL" required>
+
+              <md-item-template>
+                <span md-highlight-text="ctrl.searchText">{{item.display}}</span>
+              </md-item-template>
+              
+             
+            </md-autocomplete>
+      		
+      		<div style="">
+  				<p ng-show="searchForm.autocompleteField.$touched && searchForm.autocompleteField.$invalid">Please enter a stock ticker symbol.</p>
+  				
+  			 </div>
+
+       		
+
+    	    
+  			</md-content>
+			</div>
+		
+				<!--<input type="text" class="form-control" id="name1" name="symb" placeholder="e.g. AAPL" data-error="Please enter a stock ticker symbol." required>
+				<div class="help-block with-errors"></div>-->
+			<script type="text/javascript">
+				
+				console.log(document.getElementById('name1')==null);
+				function tofloat2(x){
+					var f = parseFloat(x);
+					f = Math.round(f*100)/100;
+					return f;
+				}
+				//var flag = document.getElementById('name1')==null;
+				//document.getElementById("searchBtn").disabled= flag;
+				function loadXML(){
+					searchText = document.getElementById("name1").value;
+					console.log(searchText);
+					$.ajax({
+						//url:'http://127.0.0.1:8081',
+						url:'http://hw8page-env.us-west-1.elasticbeanstalk.com/',
+						data:{symbol:searchText, indic:''},
+						type:'GET',
+						success:function(response,status,xhr){
+							//console.log(response);
+							Rowdate = Object.keys(response["Time Series (Daily)"]);
+							//Rowdate.reverse();
+							var Plast = tofloat2(response['Time Series (Daily)'][Rowdate[0]]['4. close']);
+							var Ppreclose = tofloat2(response['Time Series (Daily)'][Rowdate[1]]['4. close']);
+							var Popen = tofloat2(response['Time Series (Daily)'][Rowdate[0]]['1. open']);
+							var Pchange = Plast - Ppreclose;
+							Pchange = Math.round(Pchange*100)/100;
+							var Pcent = Math.round(Pchange/Ppreclose*100)/100 + "%";
+							if(Pchange>=0){
+								Pchange = "<span style='color:green;'>" + Pchange + "(" + Pcent + ")" + "<img src='http://cs-server.usc.edu:45678/hw/hw8/images/Up.png' width='20px' height='18px'>" + "</span>"; 
+							}
+							else{
+								Pchange = "<span style='color:red;'>" + Pchange + "(" + Pcent + ")" + "<img src='http://cs-server.usc.edu:45678/hw/hw8/images/Down.png' width='20px' height='18px'>" + "</span>"; 
+							}
+
+							var HTML21 = "<table class='table2'>";
+							HTML21 = HTML21 + "<tr><td class='left'>Stock Ticker Symbol</td><td>" + response['Meta Data']['2. Symbol'] + "</td></tr>";
+							HTML21 = HTML21 + "<tr><td class='left'>Last Price</td><td>" + Plast + "</td></tr>";
+							HTML21 = HTML21 + "<tr><td class='left'>Change (Change Percent)</td><td>" + Pchange + "</td></tr>";
+							HTML21 = HTML21 + "<tr><td class='left'>Timestamp</td><td>" + Rowdate[0] + "</td></tr>";
+							HTML21 = HTML21 + "<tr><td class='left'>Open</td><td>" + Popen + "</td></tr>";
+							HTML21 = HTML21 + "<tr><td class='left'>Previous Close</td><td>" + Ppreclose + "</td></tr>";
+							HTML21 = HTML21 + "<tr><td class='left'>Day's Range</td><td>" + response['Time Series (Daily)'][Rowdate[0]]['3. low'] + "-" + response['Time Series (Daily)'][Rowdate[0]]['2. high'] + "</td></tr>";
+							HTML21 = HTML21 + "<tr><td class='left'>Volume</td><td>" + response['Time Series (Daily)'][Rowdate[0]]['5. volume'] + "</td></tr>";
+
+							HTML21 = HTML21 + "</table>";
+							$("#stock1").html(HTML21);
+
+							
+							//var HTML22 = "<ul class='nav nav-tabs' role='tablist'>";
+							main_txt = response["Time Series (Daily)"];
+			var date2 = Object.keys(main_txt);
+			date2.reverse();
+			date2 = date2.slice(date2.length-130,date2.length);
+			var value21 = [];
+			var value22 = [];
+			for(var i = 0; i < date2.length; i++){
+				num = parseFloat(main_txt[date2[i]]["4. close"]);
+				value21.push(num);
+			}
+			for(var i = 0; i < date2.length; i++){
+				num = parseFloat(main_txt[date2[i]]["5. volume"])/1000000;
+				value22.push(num);
+			}
+			//console.log(value21);
+			//console.log(date2);
+			var min1 = Math.floor(Math.min.apply(null, value21));
+			var min1d = min1 - 10 - min1%10;
+			var max1 = Math.ceil(Math.max.apply(null, value21));
+			var max1d = max1 + 15 - max1%10;
+			var max2 = Math.ceil(Math.max.apply(null,value22));
+			var max2d = max2 + 100 - max2%10; 
+			var d = date2[date2.length-1].split("-");
+			//var d_s = date2[0].split("-");
+
+			var chart = new Highcharts.chart('Price', {
+    			chart: {
+        			zoomType: 'xy'
+    			},
+    			title: {
+        			text: response['Meta Data']['2. Symbol'] + 'Stock Price and Volume',
+        			style:{
+        				fontWeight: 'bold'
+        			}
+    			},
+    			subtitle: {
+        			text: '<a href="http://www.alphavantage.co">Source: Alpha Vantage </a>',
+        			style:{
+        				color: 'blue'
+        			}
+    			},
+    			xAxis: [{
+        			tickInterval: 5,
+        			categories: date2,
+        	//type: 'datetime',
+        	//dateTimeLabelFormats:{
+        	//	day: '%m'+'/'+'%d',
+        	//},
+        			labels: {
+        				formatter: function(){
+        					var arr = this.value.split('-');
+        					return arr[1] + '/' + arr[2];
+        				}
+        			},
+        	//tickInterval: 7*24*3600*1000
+    			}],
+    			yAxis: [{ // Primary yAxis
+    				min: min1d,
+    				max: max1d,
+    				tickInterval: 5,
+        			labels: {
+            			format: '{value}',
+            			style: {
+                	//color: Highcharts.getOptions().colors[1]
+            			}
+        			},
+        			title: {
+            			text: 'Stock Price',
+            			style: {
+                	//color: Highcharts.getOptions().colors[1]
+            			}
+        			}
+    			}, { // Secondary yAxis
+    				min: 0,
+    				max: max2d,
+    				//tickInterval: 50,
+        			title: {
+            			text: 'Volume',
+            			style: {
+                	//color: Highcharts.getOptions().colors[0]
+            			}
+        			},
+        			labels: {
+            			format: '{value}M',
+            			style: {
+                	//color: Highcharts.getOptions().colors[0]
+            			}
+        			},
+        			opposite: true
+    			}],
+    			tooltip: {
+        	//shared: true
+        	//formatter: function(){
+        	//	return this.x + '<br/>' + this.series.name + ': ' + this.y;
+        	//}
+    			},
+    			legend: {
+        			layout: 'vertical',
+        			align: 'right',
+        			//x: 0,
+        			verticalAlign: 'middle',
+        			//y: 100
+        	//floating: true,
+        	//backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+    			},
+    			plotOptions: {
+    				series:{
+    			//pointStart: Date.UTC(d_s[0],d_s[1],d_s[2]),
+    			//pointEnd: Date.UTC(d[0],d[1],d[2]),
+    			//pointInterval: 24*3600*1000
+    				}
+    			},
+    			series: [{
+        			name: 'Price',
+        			type: 'area',
+        			yAxis: 0,
+        			data: value21,
+        			//color: 'rgb(230,230,255)'
+
+    			}, {
+        			name: 'Volume',
+        			type: 'column',
+        			yAxis: 1,
+        			data: value22,
+        			color: 'red'
+    			}]
+			});
+							
+							//$("#Price").html(HTML22);
+						},
+						error:function(xhr,status,error){
+							console.log(error);
+							$("#stock1").html(error);
+						}
+					});
+				}
+			</script>
+		
+			<div class="col-xs-12 col-md-3">
+				<button type="button" ng-disabled="searchForm.autocompleteField.$invalid" ng-click="quote()" onclick="loadXML()" class="btn btn-info btn-sm" id="searchBtn"><span class="glyphicon glyphicon-search"></span>Get Quote</button>  
+				<button type="button" onclick="reset()" class="btn btn-default btn-sm" id="resetBtn"><span class="glyphicon glyphicon-refresh"></span>Clear</button>
+				
+				
+			</div>
+
+			</form>
+		</div>
+		<br/>
+				
+	</div>
+	
+
+	<hr style="height: 2px; background-color: white; border: none;" />	
+		
+
+		<div id="part2">
+			
+			<div ng-if="bool" class="view1" id="formtab1">
+			
+			<div class="row" id="ft1">
+				<div class="col-xs-6 col-md-8">
+					<div class="word">Favorite List</div>
+				</div>
+				<div class="col-md-2 hidden-xs">
+					Automatic Refresh: 
+				</div>
+				<div class="col-xs-6 col-md-2">
+					<input type="checkbox" id="toggle-one" checked data-toggle="toggle" data-size="small">
+					<script>
+  					$(function() {
+   						$('#toggle-one').bootstrapToggle('off');
+  					})
+					</script>
+									
+					<button type="button" class="btn btn-default btn-sm" id="resetBtn"><span class="glyphicon glyphicon-refresh"></span></button>
+
+					<button type="button" class="btn btn-default btn-sm" id="backBtn" ng-click="toggle()" ng-disabled="back"><span class="glyphicon glyphicon-menu-right"></span></button>
+				</div>
+			</div>
+
+			<div class="row" id="ft2">
+				<form class="form-inline" id="form2">
+				<div class="col-xs-4 col-md-1"><div class="word">Sort by</div></div>
+				<div class="col-xs-12 col-md-2">					
+					<select class="form-control">
+						<option>Default</option>
+						<option>Symbol</option>
+						<option>Price</option>
+						<option>Change</option>
+						<option>Change Percent</option>
+						<option>Volume</option>
+					</select>					
+				</div>
+				
+				<div class="col-xs-4 col-md-1"><div class="word">Order</div></div>
+				<div class="col-xs-12 col-md-2">
+					<select class="form-control">
+						<option>Ascending</option>
+						<option>Descending</option>
+					</select>
+				</div>
+				</form>
+			</div>
+
+			<div class="row" id="ft3">
+				<div class="col-xs-3 col-md-2"><div class="word">Symbol</div></div>
+				<div class="col-xs-3 col-md-2"><div class="word">Stock Price</div></div>
+				<div class="col-xs-3 col-md-4"><div class="word">Change (Change Percent)</div></div>
+				<div class="col-xs-3 col-md-4"><div class="word">Volume</div></div>
+			</div>
+
+			<br/>
+			</div>
+
+<!--***************************************************************************************************************************** -->
+			<div id="formtab2" ng-if="!bool" class="view2">
+		
+			<div id="ft21" class="row">
+				<div class="col-xs-2 col-md-2">
+					<button type="button" class="btn btn-default btn-sm" id="backBtn2" ng-click="toggle()"><span class="glyphicon glyphicon-menu-left"></span></button>
+				</div>
+				<div class="col-xs-10 col-md-10">
+					<div class="word" style="text-align: center;">Stock Details</div>
+				</div>
+			</div>
+			
+
+			<div style="padding: 5px;">
+				<!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#Stock" aria-controls="Stock" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-dashboard"></span>Current Stock</a></li>
+    <li role="presentation"><a href="#Charts" aria-controls="Charts" role="tab" data-toggle="tab" onclick="hisstock()"><span class="glyphicon glyphicon-stats"></span>Historical Charts</a></li>
+    <li role="presentation"><a href="#News" aria-controls="News" role="tab" data-toggle="tab" onclick="newsfeed()"><span class="glyphicon glyphicon-link"></span>News Feeds</a></li>
+    
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="row tab-pane active" id="Stock">
+    	<div class="col-xs-12 col-md-6">
+    		<div style="padding: 10px;">
+    			<div class="word" style="float: left;">Stock Details</div>
+    			<div style="float: right;">
+    				<button type="button" class="btn btn-default btn-sm" id="star"><span class="glyphicon glyphicon-star-empty"></span></button>
+    			</div>
+    			
+    		</div>
+    		
+    		<br/>
+    		<div id="stock1">
+    		<div class="progress">
+  				<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+			</div>
+			</div>
+    	</div>
+    	<div class="col-xs-12 col-md-6">
+    		<ul class='nav nav-tabs' role='tablist'>
+    			<li role='presentation' class='active'><a href='#Price' aria-controls='Price' role='tab' data-toggle='tab'>Price</a></li>
+    			<li role='presentation'><a href='#SMA' aria-controls='SMA' role='tab' data-toggle='tab' onclick="iupdate('SMA')">SMA</a></li>
+    			<li role='presentation'><a href='#EMA' aria-controls='EMA' role='tab' data-toggle='tab' onclick="iupdate('EMA')">EMA</a></li>
+    			<li role='presentation'><a href='#STOCH' aria-controls='STOCH' role='tab' data-toggle='tab' onclick="iupdate2('STOCH')">STOCH</a></li>
+    			<li role='presentation'><a href='#RSI' aria-controls='RSI' role='tab' data-toggle='tab' onclick="iupdate('RSI')">RSI</a></li>
+    			<li role='presentation'><a href='#ADX' aria-controls='ADX' role='tab' data-toggle='tab' onclick="iupdate('ADX')">ADX</a></li>
+    			<li role='presentation'><a href='#CCI' aria-controls='CCI' role='tab' data-toggle='tab' onclick="iupdate('CCI')">CCI</a></li>
+    			<li role='presentation'><a href='#BBANDS' aria-controls='BBANDS' role='tab' data-toggle='tab' onclick="iupdate3('BBANDS')">BBANDS</a></li>
+    			<li role='presentation'><a href='#MACD' aria-controls='MACD' role='tab' data-toggle='tab' onclick="iupdate32('MACD')">MACD</a></li>
+    		</ul>
+    		<div class='tab-content'>
+    			<div role='tabpanel' class='tab-pane active' id='Price'>
+    				<div class="progress">
+  						<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+						</div>
+    			</div>
+    		
+    			<div role='tabpanel' class='tab-pane' id='SMA'>
+    				<div class="progress">
+  						<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+						</div>
+    			</div>
+    		
+    			<div role='tabpanel' class='tab-pane' id='EMA'>
+    				<div class="progress">
+  						<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+						</div>
+    			</div>
+    		
+    			<div role='tabpanel' class='tab-pane' id='STOCH'>
+    				<div class="progress">
+  						<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+						</div>
+    			</div>
+    		
+    			<div role='tabpanel' class='tab-pane' id='RSI'>
+    				<div class="progress">
+  						<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+						</div>
+    			</div>
+    		
+    			<div role='tabpanel' class='tab-pane' id='ADX'>
+    				<div class="progress">
+  						<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+						</div>
+    			</div>
+    		
+    			<div role='tabpanel' class='tab-pane' id='CCI'>
+    				<div class="progress">
+  						<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+						</div>
+    			</div>
+    		
+    			<div role='tabpanel' class='tab-pane' id='BBANDS'>
+    				<div class="progress">
+  						<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+						</div>
+    			</div>
+    		
+    			<div role='tabpanel' class='tab-pane' id='MACD'>
+    				<div class="progress">
+  						<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+						</div>
+    			</div>
+    		</div>
+    		
+    	</div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="Charts">
+    	<div class="progress">
+  			<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+		</div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="News">
+    	<div class="progress">
+  			<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+		</div>
+    </div>
+    
+  </div>
+
+			</div>
+
+		</div>
+		<br/>
+		</div>
+
+		
+	</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc4/angular-material.min.js"></script>
+    <script src="script.js"></script>
+
+
+
+
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+
+<script type="text/javascript">
+	function iupdate(indic){
+		searchText = document.getElementById("name1").value;
+		console.log(indic);
+			$.ajax({
+				//url:'http://127.0.0.1:8081',
+				url:'http://hw8page-env.us-west-1.elasticbeanstalk.com/',
+				data:{symbol:searchText, indic:indic},
+				type:'GET',
+				success:function(response,status,xhr){
+
+			var title2 = response["Meta Data"]["2: Indicator"];
+			main_txt = response["Technical Analysis: "+indic];
+			var date2 = Object.keys(main_txt);
+			date2.reverse();
+			date2 = date2.slice(date2.length-130,date2.length);
+			var value2 = [];
+			for(var i = 0; i < date2.length; i++){
+				num = parseFloat(main_txt[date2[i]][indic]);
+				value2.push(num);
+			}
+			//console.log(value2);
+			//console.log(date2);
+
+			var chart = new Highcharts.chart(indic, {
+
+			chart:{
+				type: 'line'
+			},
+    		title: {
+        		text: title2
+    		},
+
+    		subtitle: {
+        		text: '<a href="http://www.alphavantage.co">Source: Alpha Vantage </a>',
+        		style:{
+        			color: 'blue'
+        		}
+    		},
+
+    		xAxis: [{
+        		tickInterval: 5,
+        		categories: date2,
+        	
+        		labels: {
+        			formatter: function(){
+        				var arr = this.value.split('-');
+        				return arr[1] + '/' + arr[2];
+        			}
+        		},
+        	
+    		}],
+
+    		yAxis: {
+    			//min: 0,
+    			//max: 300,
+    			//tickInterval: 50,
+        		labels: {
+            		format: '{value}',
+            	
+        	},
+        		title: {
+            		text: indic
+        		}
+    		},
+    		legend: {
+        		layout: 'vertical',
+        		align: 'right',
+        		verticalAlign: 'middle'
+    		},
+
+
+    		series: [{
+        		name: indic,
+        		data: value2
+        		//color: 'red'
+    		}] 
+    
+		});
+
+				},
+				error:function(xhr,status,error){
+
+				}
+	});
+	}
+
+
+	function iupdate2(indic){
+		searchText = document.getElementById("name1").value;
+		$.ajax({
+			//url:'http://127.0.0.1:8081',
+			url:'http://hw8page-env.us-west-1.elasticbeanstalk.com/',
+			data:{symbol:searchText, indic:indic},
+			type:'GET',
+			success:function(response,status,xhr){
+
+			searchText = document.getElementById("name1").value;
+			var title2 = response["Meta Data"]["2: Indicator"];
+			main_txt = response["Technical Analysis: "+indic];
+			var date2 = Object.keys(main_txt);
+			date2.reverse();
+			date2 = date2.slice(date2.length-130,date2.length);
+			var value21 = [];
+			var value22 = [];
+			for(var i = 0; i < date2.length; i++){
+				num = parseFloat(main_txt[date2[i]]["SlowK"]);
+				value21.push(num);
+			}
+			for(var i = 0; i < date2.length; i++){
+				num = parseFloat(main_txt[date2[i]]["SlowD"]);
+				value22.push(num);
+			}
+			//console.log(value21);
+			//console.log(date2);
+
+			var chart = new Highcharts.chart(indic, {
+
+			chart:{
+				type: 'line'
+			},
+    		title: {
+        		text: title2
+    		},
+
+    		subtitle: {
+        		text: '<a href="http://www.alphavantage.co">Source: Alpha Vantage </a>',
+        		style:{
+        			color: 'blue'
+        		}
+    		},
+
+    		xAxis: [{
+        		tickInterval: 5,
+        		categories: date2,
+        	
+        		labels: {
+        			formatter: function(){
+        				var arr = this.value.split('-');
+        				return arr[1] + '/' + arr[2];
+        			}
+        		},
+        	
+    		}],
+
+    		yAxis: {
+    			//min: 0,
+    			//max: 300,
+    			//tickInterval: 50,
+        		labels: {
+            		format: '{value}',
+            	
+        	},
+        		title: {
+            		text: indic
+        		}
+    		},
+    		legend: {
+        		layout: 'vertical',
+        		align: 'right',
+        		verticalAlign: 'middle'
+    		},
+
+
+    		series: [{
+        		name: searchText + " SlowK",
+        		data: value21
+        		//color: 'red'
+    		}, {
+    			name: searchText + " SlowD",
+    			data: value22
+    		}] 
+    
+		});
+			},
+			error:function(xhr,status,error){
+
+			}
+		});
+	}
+
+	function iupdate3(indic){
+		searchText = document.getElementById("name1").value;
+		$.ajax({
+			//url:'http://127.0.0.1:8081',
+			url:'http://hw8page-env.us-west-1.elasticbeanstalk.com/',
+			data:{symbol:searchText, indic:indic},
+			type:'GET',
+			success:function(response,status,xhr){
+			searchText = document.getElementById("name1").value;
+
+			var title2 = response["Meta Data"]["2: Indicator"];
+			main_txt = response["Technical Analysis: "+indic];
+			var date2 = Object.keys(main_txt);
+			date2.reverse();
+			date2 = date2.slice(date2.length-130,date2.length);
+			var value21 = [];
+			var value22 = [];
+			var value23 = [];
+			for(var i = 0; i < date2.length; i++){
+				num = parseFloat(main_txt[date2[i]]["Real Middle Band"]);
+				value21.push(num);
+			}
+			for(var i = 0; i < date2.length; i++){
+				num = parseFloat(main_txt[date2[i]]["Real Upper Band"]);
+				value22.push(num);
+			}
+			for(var i = 0; i < date2.length; i++){
+				num = parseFloat(main_txt[date2[i]]["Real Lower Band"]);
+				value23.push(num);
+			}
+			//console.log(value21);
+			//console.log(date2);
+
+			var chart = new Highcharts.chart(indic, {
+
+			chart:{
+				type: 'line'
+			},
+    		title: {
+        		text: title2
+    		},
+
+    		subtitle: {
+        		text: '<a href="http://www.alphavantage.co">Source: Alpha Vantage </a>',
+        		style:{
+        			color: 'blue'
+        		}
+    		},
+
+    		xAxis: [{
+        		tickInterval: 5,
+        		categories: date2,
+        	
+        		labels: {
+        			formatter: function(){
+        				var arr = this.value.split('-');
+        				return arr[1] + '/' + arr[2];
+        			}
+        		},
+        	
+    		}],
+
+    		yAxis: {
+    			//min: 0,
+    			//max: 300,
+    			//tickInterval: 50,
+        		labels: {
+            		format: '{value}',
+            	
+        	},
+        		title: {
+            		text: indic
+        		}
+    		},
+    		legend: {
+        		layout: 'vertical',
+        		align: 'right',
+        		verticalAlign: 'middle'
+    		},
+
+
+    		series: [{
+        		name: searchText + " Real Middle Band",
+        		data: value21
+        		//color: 'red'
+    		}, {
+    			name: searchText + " Real Upper Band",
+    			data: value22
+    		}, {
+    			name: searchText + " Real Lower Band",
+    			data: value23
+    		}] 
+    
+		});
+			},
+			error:function(xhr,status,error){
+
+			}
+		});
+	}
+
+	function iupdate32(indic){
+		searchText = document.getElementById("name1").value;
+		$.ajax({
+			//url:'http://127.0.0.1:8081',
+			url:'http://hw8page-env.us-west-1.elasticbeanstalk.com/',
+			data:{symbol:searchText, indic:indic},
+			type:'GET',
+			success:function(response,status,xhr){
+
+			searchText = document.getElementById("name1").value;
+				var title2 = response["Meta Data"]["2: Indicator"];
+			main_txt = response["Technical Analysis: "+indic];
+			var date2 = Object.keys(main_txt);
+			date2.reverse();
+			date2 = date2.slice(date2.length-130,date2.length);
+			var value21 = [];
+			var value22 = [];
+			var value23 = [];
+			for(var i = 0; i < date2.length; i++){
+				num = parseFloat(main_txt[date2[i]]["MACD_Signal"]);
+				value21.push(num);
+			}
+			for(var i = 0; i < date2.length; i++){
+				num = parseFloat(main_txt[date2[i]]["MACD_Hist"]);
+				value22.push(num);
+			}
+			for(var i = 0; i < date2.length; i++){
+				num = parseFloat(main_txt[date2[i]]["MACD"]);
+				value23.push(num);
+			}
+			//console.log(value21);
+			//console.log(date2);
+
+			var chart = new Highcharts.chart(indic, {
+
+			chart:{
+				type: 'line'
+			},
+    		title: {
+        		text: title2
+    		},
+
+    		subtitle: {
+        		text: '<a href="http://www.alphavantage.co">Source: Alpha Vantage </a>',
+        		style:{
+        			color: 'blue'
+        		}
+    		},
+
+    		xAxis: [{
+        		tickInterval: 5,
+        		categories: date2,
+        	
+        		labels: {
+        			formatter: function(){
+        				var arr = this.value.split('-');
+        				return arr[1] + '/' + arr[2];
+        			}
+        		},
+        	
+    		}],
+
+    		yAxis: {
+    			//min: 0,
+    			//max: 300,
+    			//tickInterval: 50,
+        		labels: {
+            		format: '{value}',
+            	
+        	},
+        		title: {
+            		text: indic
+        		}
+    		},
+    		legend: {
+        		layout: 'vertical',
+        		align: 'right',
+        		verticalAlign: 'middle'
+    		},
+
+
+    		series: [{
+        		name: searchText + " MACD_Signal",
+        		data: value21
+        		//color: 'red'
+    		}, {
+    			name: searchText + " MACD_Hist",
+    			data: value22
+    		}, {
+    			name: searchText + " MACD",
+    			data: value23
+    		}] 
+    
+		});
+			},
+			error:function(xhr,status,error){
+
+			}
+		});
+	}
+
+
+	function hisstock(){
+		searchText = document.getElementById("name1").value;
+					
+		$.ajax({
+			//url:'http://127.0.0.1:8081',
+			url:'http://hw8page-env.us-west-1.elasticbeanstalk.com/',
+			data:{symbol:searchText, indic:''},
+			type:'GET',
+			success:function(response,status,xhr){
+
+			main_txt = response["Time Series (Daily)"];
+			console.log(main_txt);
+			var date2 = Object.keys(main_txt);
+			date2.reverse();
+			date2 = date2.slice(date2.length-1000,date2.length);
+			var data = [];
+			
+			for(var i = 0; i < date2.length; i++){
+				num = parseFloat(main_txt[date2[i]]["4. close"]);
+				data.push(num);
+			}
+			console.log(data);
+
+		var chart = new Highcharts.StockChart('Charts', {
+
+		
+        rangeSelector: {
+            selected: 1
+        },
+
+        title: {
+            text: 'AAPL Stock Price'
+        },
+
+        series: [{
+            name: 'AAPL Stock Price',
+            data: data,
+            type: 'area',
+            threshold: null,
+            tooltip: {
+                valueDecimals: 2
+            },
+            fillColor: {
+                linearGradient: {
+                    x1: 0,
+                    y1: 0,
+                    x2: 0,
+                    y2: 1
+                },
+                stops: [
+                    [0, Highcharts.getOptions().colors[0]],
+                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                ]
+            }
+        }]
+    });
+	},
+	error: function(xhr,status,error){
+
+	}
+});
+	}
+
+
+	function newsfeed(){
+		searchText = document.getElementById("name1").value;
+		$.ajax({
+			//url:'http://127.0.0.1:8081',
+			url:'http://hw8page-env.us-west-1.elasticbeanstalk.com/',
+			data:{symbol:searchText, indic:'news1'},
+			type:'GET',
+			success:function(response,status,xhr){
+				console.log(response);
+				var htmnews = "<table class='table3' border='2'>";
+				item = response.rss.channel["0"].item;
+				var count = 0;
+				for(var i=0; i < item.length; i++){
+					NodeL = item[i];
+					if(NodeL["link"]["0"].split("/")[3]=="article"){
+						strt = "   Publicated Time:"+NodeL["pubDate"]["0"].substr(0,NodeL["pubDate"]["0"].length-6);
+						Author = "Author:" + NodeL["sa:author_name"]["0"];
+						htmnews += "<tr><td class='left2'><a href=" + NodeL["link"]["0"] + ">" + NodeL["title"]["0"] + "</a><br/>" + Author + "<br/>Date:" + strt +"</td></tr>";
+						count++;
+						//console.log(NodeL["link"]);
+					}
+					if(count==5){
+						break;
+					}
+				}				
+				
+				htmnews += "</table></br>";
+				$("#News").html(htmnews);
+			},
+			error:function(xhr,status,error){
+
+			}
+		});
+	}
+</script>
+
+</body>
+
+</html>

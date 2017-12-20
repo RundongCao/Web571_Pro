@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<title>
+		Homework4 for CSCI 571 course
+	</title>
+
+	<style type="text/css">
+		h3{
+			position: relative;
+			text-align: center;
+			top: 100px;
+			height: 10px;
+		}
+		#location{
+			text-align: center;
+		}
+		#c1{
+			position: relative;
+			width: 190px;
+			top: 125px;
+		}
+		#b1{
+			position: relative;
+			top: 155px;
+		}
+		
+	</style>
+</head>
+
+<body>
+
+	<h3>
+		Enter URL for Airlines List JSON File
+	</h3>
+	
+	<form name="myform" method="POST" id="location">
+		<input id="c1" type="text" name="URL" maxlength="255" size="100"  />
+		<br/>
+		<input id="b1" type="button" name="submit" value="Submit Query" onclick="viewJSON(this.form)" />
+	</form>
+
+	<script type="text/javascript">
+		function viewJSON(what){
+			var URL	=	what.URL.value;		
+			function loadJSON(url)	{
+				
+				if	(window.XMLHttpRequest)
+				{//	code	for	IE7+,	Firefox,	Chrome,	Opera,	Safari
+					xmlhttp=new	XMLHttpRequest();
+				}	else	{//	code	for	IE6,	IE5
+					xmlhttp=new	ActiveXObject("Microsoft.XMLHTTP");		
+				}
+				try{				
+					xmlhttp.open("GET",url,false);
+					xmlhttp.send();
+				}
+				catch(err){
+					alert("No such files!");
+					return null;
+				}
+				try{
+					jsonObj = JSON.parse(xmlhttp.responseText);
+					return	jsonObj;
+				}
+				catch(err){					
+					alert("Failed JSON Parse!");
+					return null;
+				}
+							
+			}
+
+			if (URL=="") {alert("Please provide a json file!")}
+			else{
+				
+				jsonObj =	loadJSON(URL);
+				if(jsonObj==null) return;
+				
+				try{
+					if	(window.ActiveXObject)	//if	IE,	simply	execute	script	(due	to	async prop).
+					{	if	(jsonObj.parseError.errorCode !=	0)	{
+							var myErr =	jsonObj.parseError;
+							generateError(jsonObj);
+							hWin =	window.open("",	"Error",	"height=300,width=340");
+							hWin.document.write(html_text);
+						}	else	{		
+							generateHTML(jsonObj);
+							hWin =	window.open("",	"Assignment4",	"height=800,width=600");
+							hWin.document.write(html_text);			
+						}	
+					}	
+					else	//else	if	FF,	execute	script	once	JSON	object	has	loaded
+					{		jsonObj.onload=generateHTML(jsonObj);
+							hWin =	window.open("",	"Assignment4",	"height=800,width=600");
+							hWin.document.write(html_text);		
+					}	
+					hWin.document.close();
+				}
+							
+				catch(err){
+					alert("Invalid JSON files!");
+				}	
+			}
+			
+		}
+	</script>
+
+
+	<script type="text/javascript">
+		function generateHTML(jsonObj)			{
+			root=jsonObj.DocumentElement;
+			var htmlBuffer = [];	
+			htmlBuffer.push("<html><head><title>JSON Parse Result</title></head><body>");
+			htmlBuffer.push("<table border='2'>");	
+			//caption=jsonObj.Mainline.Table.Header.Data;	
+			//html_text+="<caption align='left'><h1>"+caption+"</h1></caption>";
+			planes=jsonObj.Mainline.Table.Row;	//	an array of	planes
+			planeNodeList=planes[0];
+			htmlBuffer.push("<tbody>");	
+			htmlBuffer.push("<tr>");	
+			//x=30%;		y=20%;
+			//	output the	headers
+			var header_keys =	Object.keys(planeNodeList);
+			for(i=0;i<header_keys.length;i++){	
+				header=header_keys[i];
+				//if(header=="Airbus") {		header="Family";		x=120;		y=55;		}
+				
+				htmlBuffer.push("<th>"+header+"</th>");				
+			}
+
+			htmlBuffer.push("</tr>");	
+			//	output	out	the	values
+			for(i=0;i<planes.length;i++)	//do	for	all	planes	(one	per	row)
+			{																	
+				planeNodeList=planes[i];	//get	properties	of	a	plane	(an	object)
+				htmlBuffer.push("<tr>");						//start	a	new	row	of	the	output	table
+				var aircraft_keys =	Object.keys(planeNodeList);
+				for(j=0;j<aircraft_keys.length;j++)	
+				{
+					prop	=	aircraft_keys[j];
+					if(aircraft_keys[j]=="Plane")
+					{//handle	images	separately
+						htmlBuffer.push("<td><img src='"+	planeNodeList[prop]	+"'	width=100% '"+"'	height=30%'"+"'></td>");	
+					}
+					else if (aircraft_keys[j]=="HomePage") {
+						htmlBuffer.push("<td><a href='"+	planeNodeList[prop]	+"'>" + planeNodeList[prop]	+ "</a> </td>");
+					}
+					else if (aircraft_keys[j]=="Hubs") {//column----------------------------------------------------------------------
+						item = planeNodeList.Hubs.Hub;
+						if(item.length>0){
+							htmlBuffer.push("<td><ul>");
+							htmlBuffer.push("<li style='font-weight:bold;'>" + item[0] + "</li>");
+						
+						//font1.style.font-weight="bold";
+
+							for (var count = 1; count < item.length ; count++) {
+								htmlBuffer.push("<li>" + item[count] + "</li>");
+							}
+							htmlBuffer.push("</ul></td>");
+						}
+						
+					}	
+					else	{
+						htmlBuffer.push("<td>"+	planeNodeList[prop]	+"</td>");
+					}	
+				}	
+				htmlBuffer.push("</tr>");												
+			}																												
+			htmlBuffer.push("</tbody>");	
+			htmlBuffer.push("</table>");											
+			htmlBuffer.push("</body></html>");
+			html_text = htmlBuffer.join('\n');		
+		}
+	</script>
+</body>
+
+</html>
