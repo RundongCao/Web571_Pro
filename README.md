@@ -1,2 +1,2 @@
 # Web571_Pro
-Web Technology
+Web Technology including HTML/CSS, JavaScript, PHP
